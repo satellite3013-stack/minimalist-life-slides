@@ -356,25 +356,51 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      min-width: 154px;
-      height: 54px;
-      padding: 0 22px;
+      gap: 6px;
+      min-width: 104px;
+      height: 44px;
+      padding: 0 16px;
+      border: 1.5px solid rgba(243,108,33,.48);
       border-radius: 999px;
-      background: rgba(243,108,33,.96);
-      color: #fff;
-      box-shadow: 0 12px 30px rgba(243,108,33,.28);
-      font: 800 18px/1 var(--font-body);
+      background: rgba(255,250,246,.94);
+      color: var(--orange);
+      box-shadow: 0 7px 20px rgba(243,108,33,.12);
+      font: 800 15px/1 var(--font-body);
       text-decoration: none;
       opacity: 0;
       transform: translateY(14px);
       pointer-events: none;
-      transition: opacity 1.5s ease, transform 1.5s var(--ease-out-expo), box-shadow .2s ease;
+      transition: opacity 1.5s ease, transform 1.5s var(--ease-out-expo), min-width .32s ease, height .32s ease, padding .32s ease, box-shadow .2s ease, background .2s ease;
     }
-    .replay-fab.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    .replay-fab:hover { box-shadow: 0 16px 34px rgba(243,108,33,.36); }
+    .replay-fab.visible { opacity: .82; transform: translateY(0); pointer-events: auto; }
+    .replay-fab.intro {
+      min-width: 136px;
+      height: 48px;
+      padding: 0 19px;
+      gap: 7px;
+      background: rgba(255,250,246,.99);
+      box-shadow: 0 9px 24px rgba(243,108,33,.17);
+      opacity: 1;
+    }
+    .replay-fab-play { font-size: 11px; line-height: 1; }
+    .replay-fab-expanded, .replay-fab-arrow { display: none; }
+    .replay-fab.intro .replay-fab-compact { display: none; }
+    .replay-fab.intro .replay-fab-expanded, .replay-fab.intro .replay-fab-arrow { display: inline; }
     .replay-fab:focus-visible { outline: 4px solid rgba(243,108,33,.25); outline-offset: 5px; }
-    .replay-fab-arrow { font-size: 20px; line-height: 1; }
+    .replay-fab-arrow { font-size: 16px; line-height: 1; }
+    @media (hover: hover) and (pointer: fine) {
+      .replay-fab.visible:hover {
+        min-width: 136px;
+        height: 48px;
+        padding: 0 19px;
+        gap: 7px;
+        background: rgba(255,250,246,.99);
+        box-shadow: 0 9px 24px rgba(243,108,33,.18);
+        opacity: 1;
+      }
+      .replay-fab:hover .replay-fab-compact { display: none; }
+      .replay-fab:hover .replay-fab-expanded, .replay-fab:hover .replay-fab-arrow { display: inline; }
+    }
 
     /* === MOBILE PORTRAIT: SAME URL, NATIVE 9:16 REFLOW === */
     @media screen and (max-width: 700px) and (orientation: portrait) {
@@ -516,14 +542,22 @@
       .replay-fab {
         right: 16px;
         bottom: calc(76px + env(safe-area-inset-bottom, 0px));
-        min-width: 116px;
-        height: 46px;
-        padding: 0 17px;
-        gap: 7px;
-        font-size: 16px;
-        box-shadow: 0 10px 24px rgba(243,108,33,.26);
+        min-width: 78px;
+        height: 38px;
+        padding: 0 12px;
+        gap: 5px;
+        font-size: 13px;
+        box-shadow: 0 6px 16px rgba(243,108,33,.11);
       }
-      .replay-fab-arrow { font-size: 18px; }
+      .replay-fab.intro {
+        min-width: 106px;
+        height: 40px;
+        padding: 0 14px;
+        gap: 6px;
+        font-size: 14px;
+      }
+      .replay-fab-play { font-size: 9px; }
+      .replay-fab-arrow { font-size: 14px; }
 
     }
   </style>
@@ -534,7 +568,10 @@
     <main class="deck-stage" id="deckStage" aria-live="polite"></main>
   </div>
   <a class="replay-fab" id="replayFab" href="https://m.jane7.com/v2/list-living?ch=493784b99583&amp;isShareFlag=1" aria-label="查看往期直播回放">
-    <span>看回放</span><span class="replay-fab-arrow" aria-hidden="true">→</span>
+    <span class="replay-fab-play" aria-hidden="true">▶</span>
+    <span class="replay-fab-compact">回放</span>
+    <span class="replay-fab-expanded">看回放</span>
+    <span class="replay-fab-arrow" aria-hidden="true">→</span>
   </a>
 
   <script>
@@ -765,6 +802,8 @@
         this.touchStartX = 0;
         this.touchStartY = 0;
         this.touchStartedOnAction = false;
+        this.replayHintShown = false;
+        this.replayHintTimer = null;
         this.setupStageScale();
         this.setupKeyboardNav();
         this.setupTouchNav();
@@ -830,6 +869,22 @@
       next() { this.showSlide(Math.min(this.currentSlide + 1, this.slides.length - 1)); }
       prev() { this.showSlide(Math.max(this.currentSlide - 1, 0)); }
 
+      updateReplayFab(index) {
+        const fab = document.getElementById('replayFab');
+        const shouldShow = index > 0 && index < this.slides.length - 1;
+        fab.classList.toggle('visible', shouldShow);
+        if (!shouldShow) {
+          clearTimeout(this.replayHintTimer);
+          fab.classList.remove('intro');
+          return;
+        }
+        if (!this.replayHintShown) {
+          this.replayHintShown = true;
+          fab.classList.add('intro');
+          this.replayHintTimer = setTimeout(() => fab.classList.remove('intro'), 4500);
+        }
+      }
+
       showSlide(index) {
         this.currentSlide = index;
         this.slides.forEach((slide, i) => {
@@ -838,7 +893,7 @@
         });
         document.getElementById('globalBrand').classList.toggle('hidden', index === 0);
         document.getElementById('globalBrand').classList.toggle('stacked', index > 0 && (deckData.slides[index].id === 's05' || isLongTitle(deckData.slides[index].visible.title || '')));
-        document.getElementById('replayFab').classList.toggle('visible', index > 0 && index < this.slides.length - 1);
+        this.updateReplayFab(index);
         history.replaceState(null, '', `#${index + 1}`);
       }
 
