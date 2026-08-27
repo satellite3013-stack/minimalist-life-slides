@@ -195,9 +195,10 @@
     .cover-subtitle { margin-top: 40px; font-size: 44px; line-height: 1.45; font-weight: 500; }
     .cover-promise { margin-top: 74px; display: flex; align-items: center; gap: 22px; font-size: 33px; color: #4f4a43; }
     .cover-promise::before { content: ""; width: 72px; height: 6px; border-radius: 99px; background: var(--orange); }
-    .cover-shape { position: absolute; right: 187px; top: 258px; width: 410px; height: 500px; background: linear-gradient(var(--orange),var(--orange)) left top / 265px 4px no-repeat, linear-gradient(var(--orange),var(--orange)) right 112px / 4px 388px no-repeat, linear-gradient(var(--orange),var(--orange)) right bottom / 285px 4px no-repeat, linear-gradient(var(--orange),var(--orange)) left top / 4px 360px no-repeat; }
-    .cover-shape::before { content: ""; position: absolute; left: 243px; top: 209px; width: 58px; height: 58px; border-radius: 50%; background: rgba(243,108,33,.09); }
-    .cover-shape::after { content: ""; position: absolute; left: 257px; top: 223px; width: 30px; height: 30px; border-radius: 50%; background: var(--orange); }
+    .cover-shape { --orbit-radius: 250px; position: absolute; right: 150px; top: 270px; width: 500px; height: 500px; border: 2px solid var(--orange); border-radius: 50%; }
+    .cover-shape::after { content: ""; position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 12px #fff; transform: rotate(45deg) translateX(var(--orbit-radius)); transform-origin: center; animation: cover-orbit 12s linear infinite; will-change: transform; }
+    @keyframes cover-orbit { from { transform: rotate(45deg) translateX(var(--orbit-radius)); } to { transform: rotate(405deg) translateX(var(--orbit-radius)); } }
+    @media (prefers-reduced-motion: reduce) { .cover-shape::after { animation: none; } }
 
     /* === INTERACTION AND CHOICE SLIDES === */
     .choice-grid { position: absolute; left: 150px; right: 150px; top: 315px; display: grid; grid-template-columns: repeat(var(--cols, 5), 1fr); gap: 32px; }
@@ -426,9 +427,8 @@
       .cover-title { margin-top: 48px; font-size: 136px; }
       .cover-subtitle { margin-top: 46px; width: 860px; font-size: 48px; }
       .cover-promise { margin-top: 74px; font-size: 36px; }
-      .cover-shape { right: 90px; top: 1080px; width: 900px; height: 560px; background: linear-gradient(var(--orange),var(--orange)) left top / 600px 6px no-repeat, linear-gradient(var(--orange),var(--orange)) right 120px / 6px 440px no-repeat, linear-gradient(var(--orange),var(--orange)) right bottom / 620px 6px no-repeat, linear-gradient(var(--orange),var(--orange)) left top / 6px 410px no-repeat; }
-      .cover-shape::before { left: 590px; top: 235px; width: 72px; height: 72px; }
-      .cover-shape::after { left: 607px; top: 252px; width: 38px; height: 38px; }
+      .cover-shape { --orbit-radius: 310px; right: 230px; top: 1020px; width: 620px; height: 620px; border-width: 4px; }
+      .cover-shape::after { width: 38px; height: 38px; margin: -19px; box-shadow: 0 0 0 16px #fff; }
 
       .choice-grid { left: 90px; right: 90px; top: 490px; grid-template-columns: 1fr !important; gap: 18px; }
       .choice-item { min-height: 178px; display: grid; grid-template-columns: 92px 150px 1fr; align-items: center; gap: 22px; border-top: 2px solid var(--line); }
