@@ -190,10 +190,9 @@
     .cover-subtitle { margin-top: 40px; font-size: 44px; line-height: 1.45; font-weight: 500; }
     .cover-promise { margin-top: 74px; display: flex; align-items: center; gap: 22px; font-size: 33px; color: #4f4a43; }
     .cover-promise::before { content: ""; width: 72px; height: 6px; border-radius: 99px; background: var(--orange); }
-    .cover-shape { position: absolute; right: 70px; top: 190px; width: 460px; height: 720px; border-radius: 240px; background: var(--orange); }
-    .cover-shape::before { content: ""; position: absolute; width: 330px; height: 330px; left: 63px; top: 193px; border: 2px solid rgba(255,255,255,.72); border-radius: 50%; }
-    .cover-shape::after { content: "−"; position: absolute; left: 118px; top: 138px; width: 220px; color: #fff; font-size: 230px; line-height: 1; text-align: center; font-weight: 200; }
-    .cover-micro { position: absolute; right: 150px; bottom: 250px; color: rgba(255,255,255,.88); font-size: 20px; letter-spacing: .16em; writing-mode: vertical-rl; }
+    .cover-shape { position: absolute; right: 187px; top: 258px; width: 410px; height: 500px; background: linear-gradient(var(--orange),var(--orange)) left top / 265px 4px no-repeat, linear-gradient(var(--orange),var(--orange)) right 112px / 4px 388px no-repeat, linear-gradient(var(--orange),var(--orange)) right bottom / 285px 4px no-repeat, linear-gradient(var(--orange),var(--orange)) left top / 4px 360px no-repeat; }
+    .cover-shape::before { content: ""; position: absolute; left: 243px; top: 209px; width: 58px; height: 58px; border-radius: 50%; background: rgba(243,108,33,.09); }
+    .cover-shape::after { content: ""; position: absolute; left: 257px; top: 223px; width: 30px; height: 30px; border-radius: 50%; background: var(--orange); }
 
     /* === INTERACTION AND CHOICE SLIDES === */
     .choice-grid { position: absolute; left: 150px; right: 150px; top: 315px; display: grid; grid-template-columns: repeat(var(--cols, 5), 1fr); gap: 32px; }
@@ -368,10 +367,9 @@
       .cover-title { margin-top: 48px; font-size: 136px; }
       .cover-subtitle { margin-top: 46px; width: 860px; font-size: 48px; }
       .cover-promise { margin-top: 74px; font-size: 36px; }
-      .cover-shape { right: 90px; top: 1050px; width: 900px; height: 650px; border-radius: 330px; }
-      .cover-shape::before { width: 390px; height: 390px; left: 255px; top: 130px; }
-      .cover-shape::after { left: 340px; top: 85px; width: 220px; }
-      .cover-micro { right: 145px; bottom: 300px; font-size: 24px; }
+      .cover-shape { right: 90px; top: 1080px; width: 900px; height: 560px; background: linear-gradient(var(--orange),var(--orange)) left top / 600px 6px no-repeat, linear-gradient(var(--orange),var(--orange)) right 120px / 6px 440px no-repeat, linear-gradient(var(--orange),var(--orange)) right bottom / 620px 6px no-repeat, linear-gradient(var(--orange),var(--orange)) left top / 6px 410px no-repeat; }
+      .cover-shape::before { left: 590px; top: 235px; width: 72px; height: 72px; }
+      .cover-shape::after { left: 607px; top: 252px; width: 38px; height: 38px; }
 
       .choice-grid { left: 90px; right: 90px; top: 490px; grid-template-columns: 1fr !important; gap: 18px; }
       .choice-item { min-height: 178px; display: grid; grid-template-columns: 92px 150px 1fr; align-items: center; gap: 22px; border-top: 2px solid var(--line); }
@@ -587,7 +585,7 @@
 
     /* === TYPE-SPECIFIC SLIDE RENDERERS === */
     function renderCover(slide) {
-      return `<section class="slide cover" data-id="${slide.id}"><div class="slide-shell"><div class="cover-content"><div class="cover-kicker reveal" ${revealStyle(0)}>JANE7 LIVE · 2026</div>${editable(slide.visible.title, `${slide.id}.title`, 'cover-title reveal', 'h1')}${editable(slide.visible.subtitle, `${slide.id}.subtitle`, 'cover-subtitle reveal')}${editable(slide.visible.footer, `${slide.id}.footer`, 'cover-promise reveal')}</div><div class="cover-shape reveal-scale" ${revealStyle(2)}></div><div class="cover-micro">Less is more</div></div></section>`;
+      return `<section class="slide cover" data-id="${slide.id}"><div class="slide-shell"><div class="cover-content"><div class="cover-kicker reveal" ${revealStyle(0)}>JANE7 LIVE · 2026</div>${editable(slide.visible.title, `${slide.id}.title`, 'cover-title reveal', 'h1')}${editable(slide.visible.subtitle, `${slide.id}.subtitle`, 'cover-subtitle reveal')}${editable(slide.visible.footer, `${slide.id}.footer`, 'cover-promise reveal')}</div><div class="cover-shape reveal-scale" ${revealStyle(2)}></div></div></section>`;
     }
 
     function renderInteraction(slide) {
