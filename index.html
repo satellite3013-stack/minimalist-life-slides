@@ -541,11 +541,22 @@
     const isLongTitle = title => String(title || '').length > 18;
     const titleClass = (title, forceLong = false) => (forceLong || isLongTitle(title)) ? 'slide-title long' : 'slide-title';
     const mobileTitleLines = {
+      s02: ['最近哪一种「太多」，', '最让你累？'],
+      s03: ['让人疲惫的，', '常常不是大事'],
       s04: ['极简，是一套', '持续判断的方法'],
+      s05: ['忙碌会制造安全感，', '小事会制造完成感'],
+      s06: ['生活变臃肿，', '因为我们不断增加，', '却很少重新判断'],
+      s07: ['公司越忙，', '他越容易成为决策瓶颈'],
       s09: ['当决策不再堵在', '一个人身上，', '系统反而更顺'],
       s11: ['寻找持续产生', '大部分价值的少数'],
       s12: ['边界越模糊，', '事情越容易膨胀'],
-      s20: ['不必处理每一个', '冒出来的念头']
+      s13: ['如果今晚先做一件减法，', '打算从哪里开始？'],
+      s14: ['先问：', '我现在想留下什么？'],
+      s16: ['先决定：', '手机真正需要保留什么？'],
+      s20: ['不必处理每一个', '冒出来的念头'],
+      s21: ['降低标准，', '让练习进入生活'],
+      s23: ['拒绝一个低价值邀约，', '把完整陪伴留给', '重要的人'],
+      s24: ['五种减法，', '把有限资源还给', '重要的部分']
     };
     const formatTitle = (title, forceLong = false) => {
       const value = String(title || '');
@@ -559,9 +570,11 @@
     const responsiveTitle = (slide, forceLong = false) => {
       const title = slide.visible.title || '';
       const desktop = `<span class="desktop-title">${formatTitle(title, forceLong)}</span>`;
-      const lines = mobileTitleLines[slide.id];
-      if (!lines) return desktop;
-      return `${desktop}<span class="mobile-title">${lines.map(line => `<span class="mobile-title-line">${escapeHtml(line)}</span>`).join('')}</span>`;
+      const lines = mobileTitleLines[slide.id] || slide.visible.mobileTitleLines;
+      const mobile = Array.isArray(lines) && lines.length
+        ? lines.map(line => `<span class="mobile-title-line">${escapeHtml(line)}</span>`).join('')
+        : formatTitle(title, forceLong);
+      return `${desktop}<span class="mobile-title">${mobile}</span>`;
     };
     const logo = () => '';
     const shellHeader = slide => {
