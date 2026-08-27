@@ -812,14 +812,22 @@
         this.showSlide(0);
       }
 
-      setupStageScale() {
-        const alignReplayFab = () => {
-          const fab = document.getElementById('replayFab');
-          const brand = document.getElementById('globalBrand');
-          if (!fab || !brand) return;
+      alignReplayFab() {
+        const fab = document.getElementById('replayFab');
+        const brand = document.getElementById('globalBrand');
+        if (!fab || !brand) return;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
           const brandRect = brand.getBoundingClientRect();
-          fab.style.setProperty('--replay-fab-center-x', `${brandRect.left + brandRect.width / 2}px`);
-        };
+          const rawCenter = brandRect.left + brandRect.width / 2;
+          if (brandRect.width < 1 || !Number.isFinite(rawCenter) || rawCenter <= 0) return;
+          const halfFab = Math.max(fab.getBoundingClientRect().width / 2, 24);
+          const edgeGap = window.matchMedia('(max-width: 700px) and (orientation: portrait)').matches ? 2 : 16;
+          const safeCenter = Math.min(window.innerWidth - halfFab - edgeGap, Math.max(halfFab + edgeGap, rawCenter));
+          fab.style.setProperty('--replay-fab-center-x', `${safeCenter}px`);
+        }));
+      }
+
+      setupStageScale() {
         const scale = () => {
           const mobilePortrait = window.matchMedia('(max-width: 700px) and (orientation: portrait)').matches;
           const designWidth = mobilePortrait ? 1080 : 1920;
@@ -828,10 +836,12 @@
           const x = (window.innerWidth - designWidth * factor) / 2;
           const y = (window.innerHeight - designHeight * factor) / 2;
           this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
-          requestAnimationFrame(alignReplayFab);
+          this.alignReplayFab();
         };
         scale();
         window.addEventListener('resize', scale);
+        window.addEventListener('load', () => this.alignReplayFab(), {once:true});
+        document.fonts?.ready?.then(() => this.alignReplayFab());
       }
 
       setupKeyboardNav() {
@@ -903,6 +913,7 @@
         document.getElementById('globalBrand').classList.toggle('hidden', index === 0);
         document.getElementById('globalBrand').classList.toggle('stacked', index > 0 && (deckData.slides[index].id === 's05' || isLongTitle(deckData.slides[index].visible.title || '')));
         this.updateReplayFab(index);
+        this.alignReplayFab();
         history.replaceState(null, '', `#${index + 1}`);
       }
 
