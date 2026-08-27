@@ -347,6 +347,35 @@
     .share-button::after { content: "→"; margin-left: 18px; font-size: 36px; }
     .share-button:focus-visible { outline: 6px solid rgba(243,108,33,.25); outline-offset: 8px; }
 
+    /* === SHARE-ONLY FLOATING REPLAY CTA PROTOTYPE === */
+    .replay-fab {
+      position: fixed;
+      right: clamp(180px, 14vw, 280px);
+      bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+      z-index: 1050;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 154px;
+      height: 54px;
+      padding: 0 22px;
+      border-radius: 999px;
+      background: rgba(243,108,33,.96);
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(243,108,33,.28);
+      font: 800 18px/1 var(--font-body);
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(14px);
+      pointer-events: none;
+      transition: opacity 1.5s ease, transform 1.5s var(--ease-out-expo), box-shadow .2s ease;
+    }
+    .replay-fab.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .replay-fab:hover { box-shadow: 0 16px 34px rgba(243,108,33,.36); }
+    .replay-fab:focus-visible { outline: 4px solid rgba(243,108,33,.25); outline-offset: 5px; }
+    .replay-fab-arrow { font-size: 20px; line-height: 1; }
+
     /* === MOBILE PORTRAIT: SAME URL, NATIVE 9:16 REFLOW === */
     @media screen and (max-width: 700px) and (orientation: portrait) {
       html, body, .deck-viewport { background: #fff; }
@@ -484,6 +513,18 @@
       .share-action-copy { font-size: 30px; }
       .share-button { width: 100%; min-width: 0; min-height: 104px; font-size: 36px; }
 
+      .replay-fab {
+        right: 16px;
+        bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+        min-width: 116px;
+        height: 46px;
+        padding: 0 17px;
+        gap: 7px;
+        font-size: 16px;
+        box-shadow: 0 10px 24px rgba(243,108,33,.26);
+      }
+      .replay-fab-arrow { font-size: 18px; }
+
     }
   </style>
 </head>
@@ -492,6 +533,9 @@
   <div class="deck-viewport">
     <main class="deck-stage" id="deckStage" aria-live="polite"></main>
   </div>
+  <a class="replay-fab" id="replayFab" href="https://m.jane7.com/v2/list-living?ch=493784b99583&amp;isShareFlag=1" aria-label="查看往期直播回放">
+    <span>看回放</span><span class="replay-fab-arrow" aria-hidden="true">→</span>
+  </a>
 
   <script>
     /* === EMBEDDED STRUCTURED CONTENT === */
@@ -720,6 +764,7 @@
         this.wheelLocked = false;
         this.touchStartX = 0;
         this.touchStartY = 0;
+        this.touchStartedOnAction = false;
         this.setupStageScale();
         this.setupKeyboardNav();
         this.setupTouchNav();
@@ -754,10 +799,13 @@
 
       setupTouchNav() {
         document.addEventListener('touchstart', event => {
+          this.touchStartedOnAction = Boolean(event.target.closest?.('.replay-fab'));
+          if (this.touchStartedOnAction) return;
           this.touchStartX = event.changedTouches[0].screenX;
           this.touchStartY = event.changedTouches[0].screenY;
         }, {passive:true});
         document.addEventListener('touchend', event => {
+          if (this.touchStartedOnAction) { this.touchStartedOnAction = false; return; }
           const deltaX = event.changedTouches[0].screenX - this.touchStartX;
           const deltaY = event.changedTouches[0].screenY - this.touchStartY;
           const absX = Math.abs(deltaX);
@@ -790,6 +838,7 @@
         });
         document.getElementById('globalBrand').classList.toggle('hidden', index === 0);
         document.getElementById('globalBrand').classList.toggle('stacked', index > 0 && (deckData.slides[index].id === 's05' || isLongTitle(deckData.slides[index].visible.title || '')));
+        document.getElementById('replayFab').classList.toggle('visible', index > 0 && index < this.slides.length - 1);
         history.replaceState(null, '', `#${index + 1}`);
       }
 
