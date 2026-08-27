@@ -106,17 +106,7 @@
         max-height: 100%;
     }
 
-    /* 6. Presentation chrome stays outside the slide design system */
-    .deck-controls {
-        display: none !important;
-        position: fixed;
-        left: 50%;
-        bottom: 22px;
-        transform: translateX(-50%);
-        z-index: 1000;
-    }
-
-    /* 7. Print one fixed-size slide per page */
+    /* 6. Print one fixed-size slide per page */
     @media print {
         html,
         body {
@@ -157,12 +147,9 @@
             page-break-after: auto;
         }
 
-        .deck-controls {
-            display: none !important;
-        }
     }
 
-    /* 8. Reduced motion */
+    /* 7. Reduced motion */
     @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -360,21 +347,6 @@
     .share-button::after { content: "→"; margin-left: 18px; font-size: 36px; }
     .share-button:focus-visible { outline: 6px solid rgba(243,108,33,.25); outline-offset: 8px; }
 
-    /* === OUTSIDE-STAGE CONTROLS AND NOTES === */
-    .deck-controls { display: none !important; align-items: center; gap: 10px; padding: 8px; border-radius: 999px; background: rgba(20,19,18,.82); backdrop-filter: blur(12px); opacity: .18; transition: opacity .2s ease; }
-    .deck-controls:hover, .deck-controls:focus-within { opacity: 1; }
-    .deck-controls button { border: 1px solid rgba(255,255,255,.22); color: #fff; background: transparent; border-radius: 999px; padding: 9px 15px; font: 500 14px var(--font-body); cursor: pointer; }
-    .deck-controls button:hover { background: rgba(255,255,255,.12); }
-    .deck-status { min-width: 84px; text-align: center; color: rgba(255,255,255,.72); font-size: 13px; }
-    .notes-panel { position: fixed; right: 22px; top: 22px; bottom: 82px; width: min(560px, 42vw); z-index: 1100; padding: 28px; overflow: auto; background: rgba(20,19,18,.94); color: #f7f4ef; border: 1px solid rgba(255,255,255,.16); border-radius: 20px; box-shadow: 0 20px 80px rgba(0,0,0,.35); transform: translateX(calc(100% + 40px)); transition: transform .28s var(--ease-out-expo); }
-    .notes-panel.open { transform: translateX(0); }
-    .notes-panel h3 { font-size: 20px; margin-bottom: 16px; color: #ff8a49; }
-    .notes-panel pre { white-space: pre-wrap; font: 400 16px/1.75 var(--font-body); }
-    .edit-hotzone { position: fixed; left: 0; top: 0; width: 80px; height: 80px; z-index: 1200; }
-    .edit-toggle { position: fixed; left: 18px; top: 18px; z-index: 1201; opacity: 0; pointer-events: none; border: 0; border-radius: 999px; padding: 10px 14px; background: #171513; color: #fff; cursor: pointer; transition: opacity .2s ease; }
-    .edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
-    .editing [data-editable] { outline: 2px dashed rgba(243,108,33,.55); outline-offset: 5px; cursor: text; }
-
     /* === MOBILE PORTRAIT: SAME URL, NATIVE 9:16 REFLOW === */
     @media screen and (max-width: 700px) and (orientation: portrait) {
       html, body, .deck-viewport { background: #fff; }
@@ -512,8 +484,6 @@
       .share-action-copy { font-size: 30px; }
       .share-button { width: 100%; min-width: 0; min-height: 104px; font-size: 36px; }
 
-      .deck-controls { display: none !important; }
-      .notes-panel, .edit-hotzone, .edit-toggle { display: none !important; }
     }
   </style>
 </head>
@@ -522,18 +492,6 @@
   <div class="deck-viewport">
     <main class="deck-stage" id="deckStage" aria-live="polite"></main>
   </div>
-
-  <!-- === PRESENTER CONTROLS OUTSIDE THE SLIDE === -->
-  <nav class="deck-controls" aria-label="演示控制">
-    <button type="button" id="prevBtn" aria-label="上一页">←</button>
-    <span class="deck-status" id="deckStatus">1 / 25</span>
-    <button type="button" id="nextBtn" aria-label="下一页">→</button>
-    <button type="button" id="notesBtn">备注 N</button>
-    <button type="button" id="fullBtn">全屏 F</button>
-  </nav>
-  <aside class="notes-panel" id="notesPanel" aria-label="演讲者备注"><h3 id="notesTitle"></h3><pre id="notesBody"></pre></aside>
-  <div class="edit-hotzone" title="编辑模式"></div>
-  <button class="edit-toggle" id="editToggle" type="button">编辑 E</button>
 
   <script>
     /* === EMBEDDED STRUCTURED CONTENT === */
@@ -753,7 +711,6 @@
         this.setupKeyboardNav();
         this.setupTouchNav();
         this.setupWheelNav();
-        this.setupButtons();
         this.showSlide(0);
       }
 
@@ -778,7 +735,6 @@
           if (['ArrowLeft','ArrowUp','PageUp'].includes(event.key)) { event.preventDefault(); this.prev(); }
           if (event.key === 'Home') this.showSlide(0);
           if (event.key === 'End') this.showSlide(this.slides.length - 1);
-          if (event.key.toLowerCase() === 'n') this.toggleNotes();
           if (event.key.toLowerCase() === 'f') this.toggleFullscreen();
         });
       }
@@ -810,13 +766,6 @@
         }, {passive:true});
       }
 
-      setupButtons() {
-        document.getElementById('prevBtn').addEventListener('click', () => this.prev());
-        document.getElementById('nextBtn').addEventListener('click', () => this.next());
-        document.getElementById('notesBtn').addEventListener('click', () => this.toggleNotes());
-        document.getElementById('fullBtn').addEventListener('click', () => this.toggleFullscreen());
-      }
-
       next() { this.showSlide(Math.min(this.currentSlide + 1, this.slides.length - 1)); }
       prev() { this.showSlide(Math.max(this.currentSlide - 1, 0)); }
 
@@ -826,51 +775,17 @@
           slide.classList.toggle('active', i === index);
           slide.classList.toggle('visible', i === index);
         });
-        document.getElementById('deckStatus').textContent = `${index + 1} / ${this.slides.length}`;
         document.getElementById('globalBrand').classList.toggle('hidden', index === 0);
         document.getElementById('globalBrand').classList.toggle('stacked', index > 0 && (deckData.slides[index].id === 's05' || isLongTitle(deckData.slides[index].visible.title || '')));
-        document.getElementById('notesTitle').textContent = deckData.slides[index].visible.title || `第 ${index + 1} 页`;
-        document.getElementById('notesBody').textContent = deckData.slides[index].speakerNotes || '';
         history.replaceState(null, '', `#${index + 1}`);
       }
 
-      toggleNotes() { document.getElementById('notesPanel').classList.toggle('open'); }
       async toggleFullscreen() { if (!document.fullscreenElement) await document.documentElement.requestFullscreen?.(); else await document.exitFullscreen?.(); }
     }
 
     const initial = Math.max(0, Math.min(Number(location.hash.slice(1) || 1) - 1, deckData.slides.length - 1));
     const presentation = new SlidePresentation();
     presentation.showSlide(initial);
-
-    /* === INLINE EDITING WITH LOCAL AUTOSAVE === */
-    class InlineEditor {
-      constructor() {
-        this.isActive = false;
-        this.elements = [...document.querySelectorAll('[data-editable]')];
-        this.restore();
-        this.elements.forEach(element => element.addEventListener('input', () => this.saveElement(element)));
-      }
-      toggleEditMode() {
-        this.isActive = !this.isActive;
-        document.body.classList.toggle('editing', this.isActive);
-        document.getElementById('editToggle').classList.toggle('active', this.isActive);
-        this.elements.forEach(element => element.setAttribute('contenteditable', String(this.isActive)));
-      }
-      saveElement(element) { localStorage.setItem(`minimal-deck:${element.dataset.editKey}`, element.innerHTML); }
-      restore() { this.elements.forEach(element => { const value = localStorage.getItem(`minimal-deck:${element.dataset.editKey}`); if (value !== null) element.innerHTML = value; }); }
-    }
-
-    const editor = new InlineEditor();
-    const hotzone = document.querySelector('.edit-hotzone');
-    const editToggle = document.getElementById('editToggle');
-    let hideTimeout = null;
-    hotzone.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); editToggle.classList.add('show'); });
-    hotzone.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
-    editToggle.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
-    editToggle.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
-    hotzone.addEventListener('click', () => editor.toggleEditMode());
-    editToggle.addEventListener('click', () => editor.toggleEditMode());
-    document.addEventListener('keydown', event => { if ((event.key === 'e' || event.key === 'E') && event.target.getAttribute?.('contenteditable') !== 'true') editor.toggleEditMode(); });
 
     window.__deckReady = true;
   </script>
