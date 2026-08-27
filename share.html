@@ -538,7 +538,8 @@
       .share-button { width: 100%; min-width: 0; min-height: 104px; font-size: 36px; }
 
       .replay-fab {
-        right: 16px;
+        /* Align the compact button center with the mobile Logo center. */
+        right: calc(14.8148vw - 19px);
         bottom: calc(76px + env(safe-area-inset-bottom, 0px));
         min-width: 38px;
         height: 38px;
