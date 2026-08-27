@@ -181,8 +181,9 @@
     .brand-logo.stacked { top: 127px; }
     .brand-logo.hidden { display: none; }
     .eyebrow { flex: 0 0 auto; padding-right: 30px; border-right: 3px solid var(--orange); font-size: 33px; line-height: 1.2; font-weight: 800; color: var(--orange); letter-spacing: .08em; white-space: nowrap; }
-    .slide-title { max-width: 1320px; margin-top: 0; font-size: var(--title-size); line-height: 1.05; font-weight: 900; letter-spacing: -.045em; }
+    .slide-title { max-width: 1320px; margin-top: 0; font-size: var(--title-size); line-height: 1.05; font-weight: 900; letter-spacing: -.045em; word-break: normal; overflow-wrap: normal; line-break: strict; text-wrap: balance; }
     .slide-title.long { max-width: 1450px; font-size: var(--title-size); line-height: 1.08; }
+    .mobile-title { display: none; }
     .stacked-header .eyebrow { display: inline-block; }
     .stacked-header .slide-title { margin-top: 28px; }
     .primary { font-size: var(--body-primary); line-height: 1.35; font-weight: 800; }
@@ -271,8 +272,8 @@
 
     /* === PRINCIPLE SLIDES === */
     .principle-stage { position: absolute; left: 150px; right: 150px; top: 330px; display: grid; grid-template-columns: 470px 1fr; gap: 80px; align-items: center; }
-    .ratio-visual { width: 430px; height: 430px; border-radius: 50%; border: 34px solid var(--orange-pale); border-top-color: var(--orange); display: grid; place-items: center; transform: rotate(-25deg); }
-    .ratio-visual span { transform: rotate(25deg); font-size: 90px; font-weight: 900; }
+    .ratio-visual { box-sizing: border-box; width: 430px; height: 430px; aspect-ratio: 1 / 1; flex: 0 0 auto; border-radius: 50%; border: 34px solid var(--orange-pale); border-top-color: var(--orange); display: grid; place-items: center; transform: rotate(-25deg); }
+    .ratio-visual span { display: block; transform: rotate(25deg); font-size: 90px; line-height: 1; font-weight: 900; white-space: nowrap; }
     .principle-examples { display: grid; gap: 28px; }
     .principle-example { padding: 24px 0; border-bottom: 2px solid var(--line); font-size: 44px; font-weight: 800; }
     .inline-solid-arrow { display: inline-block; width: 34px; height: 19px; margin: 0 16px; vertical-align: -1px; }
@@ -384,6 +385,13 @@
       .content-header, .content-header.stacked-header { display: block; width: 900px; min-height: 320px; margin-top: 0; }
       .content-header .eyebrow, .stacked-header .eyebrow { display: inline-block; font-size: 32px; }
       .content-header .slide-title, .stacked-header .slide-title { max-width: 820px; margin-top: 30px; font-size: 68px; line-height: 1.14; }
+      .desktop-title { display: none; }
+      .mobile-title { display: block; }
+      .mobile-title-line { display: block; white-space: nowrap; }
+      .slide[data-id="s09"] .slide-title { font-size: 60px; line-height: 1.16; }
+      .slide[data-id="s11"] .slide-title,
+      .slide[data-id="s12"] .slide-title,
+      .slide[data-id="s20"] .slide-title { font-size: 64px; }
       .brand-logo, .brand-logo.stacked { right: 90px; top: 120px; width: 140px; height: 53px; }
       .primary { font-size: 44px; }
       .secondary { font-size: 34px; }
@@ -450,6 +458,7 @@
 
       .principle-stage { left: 90px; right: 90px; top: 545px; grid-template-columns: 1fr; gap: 70px; justify-items: center; }
       .ratio-visual { width: 380px; height: 380px; }
+      .ratio-visual span { font-size: 76px; }
       .principle-examples { width: 900px; }
       .principle-example { font-size: 42px; }
       .principle-note { font-size: 32px; }
@@ -489,7 +498,7 @@
       .resource-boundary strong { font-size: 38px; }
 
       .closing-inner { width: 880px; }
-      .closing-title { font-size: 112px; }
+      .closing-title { font-size: 84px; white-space: nowrap; }
       .closing-subtitle { font-size: 46px; }
       .closing-text { font-size: 34px; }
 
@@ -578,6 +587,13 @@
     const revealStyle = index => `style="--delay:${(index * .09 + .06).toFixed(2)}s"`;
     const isLongTitle = title => String(title || '').length > 18;
     const titleClass = (title, forceLong = false) => (forceLong || isLongTitle(title)) ? 'slide-title long' : 'slide-title';
+    const mobileTitleLines = {
+      s04: ['极简，是一套', '持续判断的方法'],
+      s09: ['当决策不再堵在', '一个人身上，', '系统反而更顺'],
+      s11: ['寻找持续产生', '大部分价值的少数'],
+      s12: ['边界越模糊，', '事情越容易膨胀'],
+      s20: ['不必处理每一个', '冒出来的念头']
+    };
     const formatTitle = (title, forceLong = false) => {
       const value = String(title || '');
       if (!forceLong && !isLongTitle(value)) return escapeHtml(value);
@@ -587,12 +603,19 @@
       return `${escapeHtml(value.slice(0, splitAt))}<br>${escapeHtml(value.slice(splitAt))}`;
     };
     const sectionEyebrow = slide => slide.visible.eyebrow || slide.section;
+    const responsiveTitle = (slide, forceLong = false) => {
+      const title = slide.visible.title || '';
+      const desktop = `<span class="desktop-title">${formatTitle(title, forceLong)}</span>`;
+      const lines = mobileTitleLines[slide.id];
+      if (!lines) return desktop;
+      return `${desktop}<span class="mobile-title">${lines.map(line => `<span class="mobile-title-line">${escapeHtml(line)}</span>`).join('')}</span>`;
+    };
     const logo = () => '';
     const shellHeader = slide => {
       const title = slide.visible.title || '';
       const forceLong = slide.id === 's05';
       const stackedClass = (forceLong || isLongTitle(title)) ? ' stacked-header' : '';
-      return `${logo(slide)}<div class="slide-shell"><div class="content-header${stackedClass}"><div class="eyebrow reveal" ${revealStyle(0)}>${escapeHtml(sectionEyebrow(slide))}</div><h2 class="${titleClass(title, forceLong)} reveal" data-editable data-edit-key="${slide.id}.title">${formatTitle(title, forceLong)}</h2></div></div>`;
+      return `${logo(slide)}<div class="slide-shell"><div class="content-header${stackedClass}"><div class="eyebrow reveal" ${revealStyle(0)}>${escapeHtml(sectionEyebrow(slide))}</div><h2 class="${titleClass(title, forceLong)} reveal" data-editable data-edit-key="${slide.id}.title">${responsiveTitle(slide, forceLong)}</h2></div></div>`;
     };
     const listFrom = (items, prefix) => (items || []).map((item, index) => `<div class="scene-line reveal" ${revealStyle(index + 2)} data-editable data-edit-key="${prefix}.${index}">${escapeHtml(item)}</div>`).join('');
 
