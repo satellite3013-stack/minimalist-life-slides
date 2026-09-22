@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="description" content="原来，人生还有这5种财富｜简七13周年线上直播演示文稿">
-  <title>不止2026｜原来，人生还有这5种财富 - 简七13周年线上直播 (V3手机版)</title>
+  <title>不止2026｜原来，人生还有这5种财富 - 简七13周年线上直播 (V3手机专享版 · 9:16原生竖屏)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -1786,6 +1786,426 @@
       margin: 0 0 10px !important;
     }
 
+    
+    /* =======================================================
+       NATIVE 9:16 MOBILE PORTRAIT ENGINE (1080 × 1920 REFLOW)
+       参考自极简生活用户分享版，专为手机竖屏沉浸式体验定制
+       ======================================================= */
+    @media screen and (max-width: 700px) and (orientation: portrait), screen and (max-aspect-ratio: 1/1) {
+      html, body, .viewport {
+        background: #fff8f2 !important;
+      }
+      .stage {
+        width: 1080px !important;
+        height: 1920px !important;
+        background: linear-gradient(180deg, #fffaf5 0%, var(--bg) 60%, #f6ebde 100%) !important;
+      }
+      .slide {
+        width: 1080px !important;
+        height: 1920px !important;
+        padding: 120px 90px 110px 90px !important;
+        background: transparent !important;
+      }
+
+      /* Universal Header in Mobile Portrait */
+      .hdr {
+        width: 900px !important;
+        min-height: 180px !important;
+        padding-right: 170px !important;
+        margin-bottom: 30px !important;
+      }
+      .eyebrow {
+        font-size: 32px !important;
+        margin-bottom: 16px !important;
+      }
+      .hdr h2 {
+        font-size: 64px !important;
+        line-height: 1.22 !important;
+        max-width: 730px !important;
+      }
+      .brand {
+        position: absolute !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 145px !important;
+        height: 55px !important;
+      }
+
+      /* P01: 封面 9:16 完美竖屏布局（文字在上，插画在下，元素完整无裁切） */
+      .slide.cover {
+        width: 1080px !important;
+        height: 1920px !important;
+        padding: 0 !important;
+      }
+      .cover-copy {
+        position: absolute !important;
+        left: 90px !important;
+        top: 250px !important;
+        width: 900px !important;
+        max-width: 900px !important;
+        z-index: 5 !important;
+      }
+      .cover-kicker {
+        font-size: 32px !important;
+        letter-spacing: .22em !important;
+      }
+      .cover h1 {
+        margin: 36px 0 26px !important;
+      }
+      .cover h1 span {
+        font-size: 145px !important;
+      }
+      .cover h1 b {
+        font-size: 96px !important;
+        margin-left: 20px !important;
+      }
+      .cover-theme-tag {
+        font-size: 38px !important;
+        padding: 14px 36px !important;
+        border-radius: 999px !important;
+        margin-bottom: 30px !important;
+        display: inline-block !important;
+      }
+      .cover p {
+        font-size: 40px !important;
+        line-height: 1.5 !important;
+        color: var(--muted) !important;
+      }
+      .cover-art {
+        position: absolute !important;
+        left: 50% !important;
+        right: auto !important;
+        top: 960px !important;
+        transform: translateX(-50%) !important;
+        width: 760px !important;
+        height: 800px !important;
+        z-index: 2 !important;
+      }
+      .cover-art .sun {
+        position: absolute !important;
+        width: 220px !important;
+        height: 220px !important;
+        border-radius: 50% !important;
+        right: 80px !important;
+        top: 30px !important;
+        background: #fac9aa !important;
+      }
+      .cover-art .cover-girl {
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        top: 40px !important;
+        width: auto !important;
+        height: 720px !important;
+        object-fit: contain !important;
+      }
+      .cover-note {
+        position: absolute !important;
+        left: 90px !important;
+        bottom: 80px !important;
+        font-size: 30px !important;
+        letter-spacing: .22em !important;
+        color: var(--muted) !important;
+        z-index: 5 !important;
+      }
+
+      /* P02: 13年里程碑 */
+      .p02-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 40px !important;
+        width: 900px !important;
+        align-items: center !important;
+      }
+      .milestone-box {
+        width: 100% !important;
+        padding: 44px !important;
+      }
+      .years-number { font-size: 160px !important; }
+      .years-label { font-size: 34px !important; }
+      .quote-box blockquote {
+        font-size: 50px !important;
+        line-height: 1.4 !important;
+        text-align: center !important;
+      }
+      .quote-subtext {
+        font-size: 32px !important;
+        text-align: center !important;
+      }
+
+      /* P03: 184条留言 */
+      .count-stage {
+        height: 900px !important;
+        width: 900px !important;
+      }
+      .count-core strong { font-size: 240px !important; }
+      .count-main-label { font-size: 48px !important; }
+      .count-sub-label { font-size: 32px !important; }
+      .ftag {
+        font-size: 30px !important;
+        padding: 16px 32px !important;
+      }
+
+      /* P04: 词频向心星环（手机竖屏适配） */
+      .word-map {
+        position: absolute !important;
+        left: 90px !important;
+        right: 90px !important;
+        top: 400px !important;
+        bottom: 240px !important;
+      }
+      .w-center {
+        font-size: 160px !important;
+      }
+      .w-center span { font-size: 56px !important; }
+      .w-tl { left: 4% !important; top: 10% !important; font-size: 88px !important; }
+      .w-tr { right: 4% !important; top: 12% !important; font-size: 84px !important; }
+      .w-ml { left: 0% !important; top: 48% !important; font-size: 60px !important; }
+      .w-mr { right: 0% !important; top: 48% !important; font-size: 58px !important; }
+      .w-tc { left: 50% !important; top: 5% !important; font-size: 56px !important; }
+      .w-bc { left: 50% !important; top: 88% !important; font-size: 56px !important; }
+      .w-bl { left: 8% !important; top: 82% !important; font-size: 52px !important; }
+      .w-br { right: 8% !important; top: 82% !important; font-size: 50px !important; }
+      .w-el { left: 0% !important; top: 76% !important; font-size: 44px !important; }
+      .w-er { right: 0% !important; top: 76% !important; font-size: 44px !important; }
+      .keywords-bottom {
+        left: 90px !important;
+        right: 90px !important;
+        bottom: 120px !important;
+      }
+      .keywords-bottom .statement { font-size: 38px !important; }
+
+      /* P05: Punch */
+      .punch-card {
+        width: 900px !important;
+        max-width: 900px !important;
+        padding: 60px 48px !important;
+      }
+      .punch-card blockquote { font-size: 54px !important; line-height: 1.45 !important; }
+
+      /* P06: 财富五维度（手机竖向条带） */
+      .wealth-five-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 18px !important;
+        width: 900px !important;
+      }
+      .wealth-col {
+        display: grid !important;
+        grid-template-columns: 80px 70px 190px 1fr !important;
+        align-items: center !important;
+        text-align: left !important;
+        padding: 24px 30px !important;
+      }
+      .w-icon { margin-bottom: 0 !important; }
+      .w-num { margin-bottom: 0 !important; font-size: 32px !important; }
+      .wealth-col h3 { margin: 0 !important; font-size: 36px !important; }
+      .wealth-col p { margin: 0 !important; font-size: 28px !important; }
+
+      /* 章节页 (Chapter) 9:16 */
+      .slide.chapter {
+        width: 1080px !important;
+        height: 1920px !important;
+        padding: 120px 90px 110px 90px !important;
+        justify-content: center !important;
+      }
+      .chapter .brand {
+        position: absolute !important;
+        top: 120px !important;
+        right: 90px !important;
+      }
+      .chapter-index { font-size: 200px !important; }
+      .chapter-badge { font-size: 36px !important; }
+      .chapter-inner h2 { font-size: 72px !important; }
+      .chapter-inner p { font-size: 36px !important; }
+      .chapter-dot {
+        right: 90px !important;
+        bottom: 140px !important;
+      }
+
+      /* 读者故事页 (Message Slide) 9:16 (对标图 1 蓝蔷 & 图 2 真实效果) */
+      .slide.message-slide {
+        width: 1080px !important;
+        height: 1920px !important;
+        padding: 120px 90px 110px 90px !important;
+      }
+      .message-card-wrap {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: auto 0 !important;
+      }
+      .message-card {
+        width: 900px !important;
+        max-width: 900px !important;
+        background: var(--paper-card) !important;
+        border-radius: 28px !important;
+        border: 2.5px solid var(--line) !important;
+        padding: 50px 52px !important;
+        box-shadow: 0 16px 48px rgba(80, 45, 20, 0.07) !important;
+        box-sizing: border-box !important;
+      }
+      .author-meta {
+        display: flex !important;
+        align-items: center !important;
+        gap: 20px !important;
+        margin-bottom: 26px !important;
+        border-bottom: 2px solid var(--orange2) !important;
+        padding-bottom: 16px !important;
+      }
+      .author-badge {
+        font-size: 32px !important;
+        padding: 8px 24px !important;
+        border-radius: 999px !important;
+      }
+      .author-desc {
+        font-size: 28px !important;
+        color: var(--muted) !important;
+        font-weight: 600 !important;
+      }
+      .message-body {
+        font-size: 35px !important;
+        line-height: 1.78 !important;
+        color: #221e1b !important;
+      }
+      .message-body p {
+        margin: 0 0 20px !important;
+      }
+      .message-body p:last-child {
+        margin-bottom: 0 !important;
+      }
+      .message-body.text-large {
+        font-size: 38px !important;
+        line-height: 1.82 !important;
+      }
+      .message-body.text-medium {
+        font-size: 34px !important;
+        line-height: 1.76 !important;
+      }
+      .message-body.text-lai {
+        font-size: 30px !important;
+        line-height: 1.66 !important;
+      }
+      .message-body.text-lai p {
+        margin: 0 0 14px !important;
+      }
+
+      /* Slide 29: 美丽女王双留言卡片（上下纵向排布，对标图 3） */
+      .two-stories-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+        width: 900px !important;
+        max-width: 900px !important;
+        margin: auto 0 !important;
+      }
+      .story-card {
+        width: 100% !important;
+        background: var(--paper-card) !important;
+        border-radius: 24px !important;
+        border: 2px solid var(--line) !important;
+        padding: 36px 42px !important;
+        box-shadow: 0 12px 36px rgba(80, 45, 20, 0.06) !important;
+        box-sizing: border-box !important;
+      }
+      .story-card .author-badge {
+        font-size: 28px !important;
+        padding: 6px 20px !important;
+      }
+      .story-card .author-desc {
+        font-size: 24px !important;
+      }
+      .story-card .message-body {
+        font-size: 28px !important;
+        line-height: 1.66 !important;
+      }
+      .story-card .message-body p {
+        margin: 0 0 14px !important;
+      }
+
+      /* Slide 11: 三大资金桶 */
+      .v-three-buckets {
+        width: 900px !important;
+        max-width: 900px !important;
+        gap: 30px !important;
+      }
+      .bucket-card {
+        padding: 36px 40px !important;
+        border-radius: 26px !important;
+      }
+      .bucket-name { font-size: 38px !important; }
+      .bucket-role { font-size: 32px !important; }
+      .bucket-desc { font-size: 28px !important; }
+
+      /* 总结页双层卡片 (Slide 15, 19, 23, 28, 31, 33) */
+      .v-stack-container {
+        width: 900px !important;
+        max-width: 900px !important;
+        gap: 32px !important;
+      }
+      .v-card {
+        width: 100% !important;
+        padding: 44px 44px !important;
+        border-radius: 26px !important;
+      }
+      .v-card-icon {
+        width: 90px !important;
+        height: 90px !important;
+        border-radius: 24px !important;
+      }
+      .v-card-icon .lucide {
+        width: 52px !important;
+        height: 52px !important;
+      }
+      .v-card-tag { font-size: 28px !important; }
+      .v-card-content h3 { font-size: 38px !important; }
+      .v-flow-bridge { padding: 10px 0 !important; }
+      .v-bridge-arrow { font-size: 42px !important; }
+      .v-bridge-text { font-size: 30px !important; }
+      .synthesis-quote-bar { margin-top: 40px !important; }
+      .synthesis-quote-bar blockquote { font-size: 36px !important; }
+
+      /* Slide 30: 调光开关 */
+      .dimmer-stage-v2 {
+        width: 900px !important;
+        max-width: 900px !important;
+        padding: 44px 44px !important;
+        margin-bottom: 30px !important;
+      }
+      .dimmer-label-v2 { font-size: 34px !important; }
+      .dimmer-track-v2 { height: 32px !important; }
+      .dimmer-notes-grid-v2 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+        width: 900px !important;
+      }
+      .d-note-v2 { font-size: 28px !important; padding: 22px 28px !important; }
+
+      /* Slide 32: 四行回望 */
+      .echo-stack {
+        width: 900px !important;
+        max-width: 900px !important;
+        gap: 24px !important;
+      }
+      .echo-row-card {
+        width: 100% !important;
+        padding: 28px 36px !important;
+      }
+      .echo-badge { font-size: 28px !important; }
+      .echo-sub { font-size: 24px !important; }
+      .echo-flow { font-size: 32px !important; }
+
+      /* Slide 34: 结尾页 */
+      .closing-inner { width: 900px !important; }
+      .closing h2 { font-size: 68px !important; }
+      .closing-options { flex-wrap: wrap !important; gap: 16px !important; }
+      .closing-options span { font-size: 32px !important; padding: 14px 34px !important; }
+      .closing-lines p { font-size: 34px !important; }
+      .closing-lines strong { font-size: 44px !important; }
+    }
+
     /* =========================================
        MOBILE PORTRAIT OVERRIDES (1080 x 1920)
        ========================================= */
@@ -3001,12 +3421,14 @@
       function updateScale() {
         const vw = window.innerWidth;
         const vh = window.innerHeight;
-        const isPortrait = (vw <= 700) && (vh > vw);
+        const isPortrait = vh > vw;
 
         const designW = isPortrait ? 1080 : 1920;
         const designH = isPortrait ? 1920 : 1080;
 
         const scale = Math.min(vw / designW, vh / designH);
+        stage.style.width = designW + 'px';
+        stage.style.height = designH + 'px';
         stage.style.position = 'absolute';
         stage.style.left = '50%';
         stage.style.top = '50%';
@@ -3128,6 +3550,7 @@
       }, { passive: true });
 
       window.addEventListener('resize', updateScale);
+      window.addEventListener('orientationchange', updateScale);
       window.addEventListener('orientationchange', () => {
         setTimeout(updateScale, 150);
       });
