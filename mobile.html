@@ -1939,6 +1939,53 @@
       }
     }
   
+    /* === COMMUNITY FAB BUTTON === */
+    .community-fab {
+      position: absolute;
+      right: 150px;
+      bottom: 80px;
+      z-index: 100;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(243, 108, 33, 0.48);
+      background: rgba(255, 250, 246, 0.96);
+      color: var(--orange);
+      font-family: var(--font-body, "Noto Sans SC", sans-serif);
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(243, 108, 33, 0.12);
+      transition: transform .25s ease, box-shadow .25s ease, background .2s ease;
+      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+    }
+    .community-fab:hover, .community-fab:active {
+      transform: translateY(-2px);
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(243, 108, 33, 0.22);
+    }
+    .community-fab .fab-play {
+      font-size: 13px;
+      line-height: 1;
+      color: var(--orange);
+    }
+    .community-fab .fab-text {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: .02em;
+    }
+    .community-fab .fab-arrow {
+      font-size: 20px;
+      line-height: 1;
+      color: var(--orange);
+    }
+
     /* =======================================================
        NATIVE 9:16 MOBILE PORTRAIT ENGINE (1080 × 1920 REFLOW)
        参考自极简生活用户分享版，专为手机竖屏沉浸式体验定制
@@ -1962,6 +2009,34 @@
         box-sizing: border-box !important;
         position: absolute !important;
         inset: 0 !important;
+      }
+
+      /* Community FAB in Mobile Portrait */
+      .community-fab {
+        position: absolute !important;
+        right: 90px !important;
+        bottom: 95px !important;
+        z-index: 100 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        padding: 16px 34px !important;
+        border-radius: 999px !important;
+        border: 2px solid rgba(243, 108, 33, 0.55) !important;
+        background: rgba(255, 250, 246, 0.98) !important;
+        color: var(--orange) !important;
+        box-shadow: 0 8px 24px rgba(243, 108, 33, 0.14) !important;
+      }
+      .community-fab .fab-play {
+        font-size: 16px !important;
+      }
+      .community-fab .fab-text {
+        font-size: 28px !important;
+        font-weight: 800 !important;
+      }
+      .community-fab .fab-arrow {
+        font-size: 26px !important;
       }
 
       /* Universal Header in Mobile Portrait */
@@ -2542,6 +2617,13 @@
       </div>
     </div>
   </div>
+  
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
 </section>
 
 <!-- P04: 184条留言词频 (向心星环词云 · 彻底填满中央空洞) -->
@@ -2569,6 +2651,13 @@
   <div class="keywords-bottom reveal" style="--d:0.40s">
     <div class="statement">大家写得最多的关键词，和钱没什么关系。</div>
   </div>
+  
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
 </section>
 
 <!-- P05: 我们到底在追求什么样的“有钱”？ -->
@@ -2701,6 +2790,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -2736,6 +2832,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -2768,6 +2871,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -2877,6 +2987,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -2909,6 +3026,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -3007,6 +3131,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -3041,6 +3172,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -3138,6 +3276,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -3172,6 +3317,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -3268,6 +3420,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -3300,6 +3459,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -3334,6 +3500,13 @@
           </div>
         </div>
       </div>
+      
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
     </section>
   
 
@@ -3404,6 +3577,13 @@
       </div>
     </div>
   </div>
+  
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
 </section>
 
 <!-- P30: 美丽女王 · 留言二 -->
@@ -3434,6 +3614,13 @@
       </div>
     </div>
   </div>
+  
+    <a class="community-fab reveal" style="--d:0.28s" href="https://m.jane7.com/v2/topic?topicCode=JP2026082411470322661&ch=ba6cdc1f6a9b&isShareFlag=1" target="_blank" rel="noopener noreferrer" aria-label="去社区">
+      <span class="fab-play" aria-hidden="true">▶</span>
+      <span class="fab-text">去社区</span>
+      <span class="fab-arrow" aria-hidden="true">→</span>
+    </a>
+  
 </section>
 
 <!-- P30: 人生的“调光开关” (空间舒展版 · 消除大断层) -->
